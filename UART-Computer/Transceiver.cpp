@@ -10,27 +10,30 @@
 #include <iostream>
 using namespace std;
 
-//For various COMPORT numbers, possible baud rates and modes refer: https://www.teuniz.net/RS-232/
-#define COMPORT 17
+#define COMPORT 5
 #define BAUD 9600
+#define ZZZ 50	//Sleep duration in ms.
 
 unsigned int recvInt32();
 void sendInt32(unsigned int);
 
 int main()
 {
-	if (RS232_OpenComport(COMPORT, BAUD, "6E2"))		//Set mode here.
+	if (RS232_OpenComport(COMPORT, BAUD, "8N1"))		//Set mode here.
 	{
 		printf("Communication Port unavailable!\n");
 		return(0);
 	}
-	
-	sendInt32(137);
-	unsigned int rx = recvInt32();
-
-	cout << "Received integer: " << rx << endl;
+	while(true)	//Exit using interrupt.
+	{
+		unsigned int tx, rx;
+		cin >> tx;
+		sendInt32(tx);
+		cout << "Sent integer: " << tx << endl;
+		rx = recvInt32();
+		cout << "Received integer: " << rx << endl;
+	}
 	RS232_CloseComport(COMPORT);
-	cin.ignore();
 	return(0);
 }
 
@@ -50,12 +53,12 @@ unsigned int recvInt32()
 			n++;
 			
 			//DEBUG...
-			printf("Receiving... %x (%c)\n", rx, rx);
+			//printf("Receiving... %x (%c)\n", rx, rx);
 		}
 		#ifdef _WIN32
-			Sleep(100);
+			Sleep(ZZZ);
 		#else
-			usleep(100000);
+			usleep(ZZZ * 1000);  // sleep for some ms
 		#endif
 	}
 	return(rx);
@@ -63,25 +66,21 @@ unsigned int recvInt32()
 
 void sendInt32(unsigned int tx)
 {
-	unsigned char unable_to_read[] = "cefijloqrtwx";
-	for (int i = 0; i < 12; i++)
+	for (int i = 0; i < 4; i++)
 	{
 		unsigned char buffer = (unsigned char) (tx & 255);
 		tx = tx >> +8;
-    
 		//DEBUG...
-		printf("Sending... %x(%c)\n", unable_to_read[i], unable_to_read[i]);
-		
-		if (RS232_SendByte(COMPORT, unable_to_read[i]))
+		//printf("Sending... %x(%c)\n", buffer, buffer);
+		if (RS232_SendByte(COMPORT, buffer))
 		{
 			cout << "Error while transmitting!" << endl;
 			return;
 		}
 		#ifdef _WIN32
-			Sleep(100);
+			Sleep(ZZZ);
 		#else
-			usleep(100000);
+			usleep(ZZZ * 1000);  // sleep for some ms
 		#endif
-		cin.ignore(); //Wait to cross-check output on the FPGA.
 	}
 }
