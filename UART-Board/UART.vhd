@@ -26,7 +26,7 @@ architecture COMPORT of UART is
 	signal tx_wr, wr_done : std_logic;
 	signal lock, mask : std_logic := '0';
 	begin
-	    div <= X"028B"; -- X"0A2C"; -- 10416 = 10M / (9600 * 16) = xA2C.
+	    div <= X"028B"; -- 651 = 100M / (9600 * 16) = 0x028B.
 		COM0: entity work.uart_transceiver port map(
 			sys_rst => RESET,
 			sys_clk => CLK,
