@@ -11,7 +11,7 @@
 #include <string>
 using namespace std;
 
-#define COMPORT 5
+#define COMPORT 18						// Check this page to determine the COMPORT: https://www.teuniz.net/RS-232/
 #define BAUD 9600
 #define ZZZ 75	//Sleep duration in ms.
 
@@ -27,6 +27,7 @@ int main()
 	}
 	
 	unsigned int n, *tx, *rx;
+	cout << "Enter the size of the array to be sorted: ";
 	cin >> n;
 	sendInt32(n);
 	cout << "Sending size: " << n << endl;
@@ -34,7 +35,7 @@ int main()
 	tx = new unsigned int[n];
 	rx = new unsigned int[n];
 
-	cout << "Sending array:\n";
+	cout << "Sending array (randomly generated):\n";
 	
 	for (int i = 0; i < n; i++)
 	{
