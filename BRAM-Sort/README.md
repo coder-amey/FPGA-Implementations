@@ -27,5 +27,5 @@ Performs sorting on a variable-size array of 32-bit (unsigned) integers stored i
 * In the default state, the Int32CommUtil driver activates the UART and BRAM modules, and waits for input. It reads the input and stores the array into the BRAM.
 * Once the array has been recorded, it activates the process block (Int32BRAMSort module) and suspends all the other processes while it waits fot the process block to yield. The boundary of the array is designated by providing the starting and the ending addresses to the process block.
 * The Int32BRAMSort module implements the selection sort algorithm on the array. The sorting is done in-place and the sorted array can be directly retrieved from the BRAM. The process block triggers a *done* signal to indicate to the driver module that the process has been completed.
-* In the final state, the driver module reads the array from the BRAM and serially returns tranmits it over the UART transceiver to the computer.
+* In the final state, the driver module reads the array from the BRAM and serially tranmits it over the UART transceiver to the computer.
 * The programme running on the computer randomly generates an array of a given size and feeds it to the FPGA board over the UART transceiver. It also verifies that the array obtained from the FPGA board is in a sorted order.
