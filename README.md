@@ -22,6 +22,7 @@ Performs clustering on a 2-dimensional variable-size data set consisting of pair
 ### General configuration
 * The 'Board' directory houses the VHDL/Verliog codes as well as the design constraints (for Digilent Basys3 board) of the implementation for the FPGA board. To reuse the code, please be sure to use an appropriate constraints file suitable for your device.  
 * The 'Computer' directory houses the C/C++ codes to implement a UART terminal on the computer and communicate with the FPGA-based implementation module. Shell scripts have also been provided to scan for ports as well as to build, link and run the codes using gcc and g++ compilers.  
+* A summary of the execution of each of the implementations is provided in the corresponding transcript document.
 
 ### UART
 * This design implements an 8-bit UART with one start bit (active low), one stop bit (active high) and no parity bits. 10 bits per packet.
