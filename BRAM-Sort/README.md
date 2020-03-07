@@ -1,7 +1,7 @@
 # BRAM-Sort
 
 ## Introduction:
-Performs sorting on a variable-size array of 32-bit (unsigned) integers stored in a block-RAM. The BRAM is implemented using an IP-Core and it is loaded with an array which is received from the computer. The sorted array is written back.
+This design performs sorting on a variable-size array of 32-bit (unsigned) integers stored in a block-RAM. The BRAM is implemented using an IP-Core and it is loaded with an array which is received from the computer. The sorted array is written back.
 
 ## Dependencies
 * UART transceiver core module: uart_transceiver.v (Sebastien Bourdeauducq)
